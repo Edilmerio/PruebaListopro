@@ -1,0 +1,46 @@
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+
+### vitual enviroment ###
+venv/
+
+### database ###
+db.sqlite3
+
+### Pycharm ###
+.idea/
+
+### node_modules ###
+node_modules
+
+### static ###
+static
+### except PruebaListopro/**/static###
+!apps/**/static
+
+### celery files###
+celerybeat-schedule*
+
+### secret key ###
+file_secret_key
+
+### data generated ###
+~*
+
+### log PruebaListopro ###
+log
+
+### file events.json ###
+events.json
+

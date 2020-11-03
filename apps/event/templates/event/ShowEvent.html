@@ -1,0 +1,51 @@
+<!--HEREDANDO DE LA PLANTILLA BASE-->
+{% extends 'core/Layout.html' %}
+<!-- END HEREDANDO DE LA PLANTILLA BASE-->
+
+<!--ADICIONDO TITULO-->
+{% block titulo %}
+    Eventos
+{% endblock %}
+<!--END ADICIONDO TITULO-->
+
+<!--ADICIONDO CSS, JS-->
+{% load static %}
+{% block css %}
+    <link href="{% static 'fullcalendar/main.min.css'%}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'event/css/show_event.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'fullcalendar/main.js'%}" type="text/javascript"></script>
+    <script src="{% static 'event/scripts/show_event.js' %}" type="text/javascript"></script>
+    <script src="{% static 'event/scripts/events.js' %}" type="text/javascript"></script>
+{% endblock %}
+<!--END ADICIONDO CSS, JS-->
+
+<!--ADICIONADO CONTENIDO DE LA PAGINA-->
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-2">
+
+            <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
+
+        </div>
+        <div id="calendar_actions" class="col-sm-10">
+            <div id="actions" class="row mb-5">
+                <div class="col d-flex">
+                    <span class="flex-grow-1 flex-shrink-1"></span>
+                    <a id="a_save_events_from_json_file" href="/event/save_events_from_json_file"
+                       class="btn btn-primary mr-2">
+                        <span id="span_save_events_from_json_file"></span>
+                        Load Events from File</a>
+                    <a id="save_events_from_google_calendar" href="#" class="btn btn-primary disabled">Load Events from Google Calendar</a>
+                </div>
+            </div>
+            <div class="row w-100" id="parent_calendar">
+                {% include 'event/Events.html'%}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<!-- END ADICIONADO CONTENIDO DE LA PAGINA-->
