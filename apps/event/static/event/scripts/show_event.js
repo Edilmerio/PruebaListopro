@@ -24,7 +24,7 @@ let ShowEvent = function () {
                 Core.show_notification(data);
                 span_save_events_from_json_file$.removeClass('fas fa-spinner fa-spin fa-lg');
                 a_save_events_from_json_file.blur();
-                Events.render_calendar();
+                Events.refetch_calendar();
             }
         });
     };

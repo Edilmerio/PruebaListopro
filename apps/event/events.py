@@ -112,10 +112,24 @@ class Events:
     @staticmethod
     def __build_recurrence(event):
         """
-        return string with all property recurrence separate by '+'
+        return string with all property recurrence in string
+        dictionary {RRULE: string RRULE, RDATE: string RDATE, EXDATE: string EXDATE}
         """
         array_recurrence = event.get('recurrence', None)
         if not array_recurrence:
             return None
-        return '+'.join(array_recurrence)
+        dict_rrule = {}
+        for el in array_recurrence:
+            if 'RRULE' in el:
+                dict_rrule['RRULE'] = el
+                continue
+            if 'RDATE' in el:
+                dict_rrule['RDATE'] = el
+                continue
+            if 'EXDATE' in el:
+                dict_rrule['EXDATE'] = el
+                continue
+        return str(dict_rrule)
+
+
 
