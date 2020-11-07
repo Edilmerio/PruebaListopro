@@ -5,16 +5,17 @@ PruebaListopro.
 Pagina principal event/show_events
 
 En la pagina principal se muestra:
-1-Un calendario que recibe solo recibe los eventos desde el servidor que esten dentro de la
+1-Un calendario que solo recibe los eventos desde el servidor que esten dentro de la
 fecha de inicio y fin del calendario, tanto cuando se carga inicialmente como cuando se mueve adelante
-o atras con los botones, inicialmente el calendario es congigurado con la fecha actual.
-2-La zona horaria inicial, con a que se muestran los eventos, la coincide inicialmete con la configurada en el equipo local, ademas
-da la posibilidad de cambiar la zona horaria a la deseada mediante el select TimeZone
+o atras con los botones, inicialmente el calendario es configurado con la fecha actual.
+2-La zona horaria inicial, con la que se muestran los eventos, coincide inicialmete con la configurada en el equipo local,
+ademas da la posibilidad de cambiar la zona horaria a la deseada mediante el select TimeZone
 3-Cuando se da click sobre un evento dentro del caledario se muestra un popover con la informacion
 detallada del evento
 4-Boton Load Events from File que permite de forma asincrona leer el fichero events.json, insertar
 los nuevos eventos, actualizar los existentes utilizando como identificador el id del evento
-enviado por la api Google Calendar y recargar el calendario con los cambios.
+enviado por la api Google Calendar, recargar el calendario con los cambios y notificar al cliente el resultado
+de la operacion.
 
 En el fichero PruebaListopro/log se escriben los log del sistema
 

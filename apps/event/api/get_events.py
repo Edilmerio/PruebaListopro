@@ -6,7 +6,7 @@ from django.db.models import Q
 from dateutil.parser import parse
 from dateutil import tz
 from dateutil.rrule import rrulestr
-
+import pytz
 from core.utils import write_log
 from ..models import Event
 from config import settings
@@ -23,9 +23,9 @@ def get_events_json(request):
         write_log('Do not exist or do not have format start or end date')
         return JsonResponse([], safe=False)
     if start_req.tzinfo is None or start_req.tzinfo.utcoffset(start_req) is None:
-        tz_req = tz.gettz(request.GET['timeZone'])
-        start_req = start_req.astimezone(tz=tz_req)
-        end_req = end_req.astimezone(tz=tz_req)
+        tz_req = pytz.timezone(request.GET['timeZone'])
+        start_req = tz_req.localize(start_req)
+        end_req = tz_req.localize(end_req)
 
     single_events = __process_single_events(start_req, end_req)
     recurring_events = __process_recurring_events(start_req, end_req)

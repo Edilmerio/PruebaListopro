@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-
+from django.shortcuts import redirect, reverse
 urlpatterns = [
     url(r'^core/', include('core.urls')),
     url(r'^auth/', include('auth_proj.urls')),
     url(r'^event/', include('event.urls')),
+    url(r'', lambda request: redirect(reverse('event:show_events'), permanent=True)),
 ]
 

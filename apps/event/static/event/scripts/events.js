@@ -2,6 +2,21 @@ let Events = function () {
 
     let calendarEl = document.getElementById('calendar');
     let calendar;
+
+    let content_popover = function(info){
+        let x = '<div class="d-flex">' +
+            '<span class="flex-grow-1 flex-lg-shrink-1"></span>' +
+            '<span></span>' +
+            '</div>' +
+            '<div>' +
+                '<h5><strong>Sumary:&nbsp;</strong>'+info.event.title+'</h5>' +
+                '<p><strong>Status:&nbsp;</strong>'+info.event.extendedProps.status+'</p>' +
+            '</div>';
+
+        return x
+    };
+
+
     let config_calendar = {
         initialView: 'dayGridMonth',
         timeZone:  moment.tz.guess(),
@@ -16,17 +31,14 @@ let Events = function () {
                 dayMaxEventRows: 5 // adjust to 6 only for timeGridWeek/timeGridDay
             }
         },
-        eventClick: function(info) {
-            // alert('Event: ' + info.event.title);
-            // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            // alert('View: ' + info.view.type);
-            console.log(info.event.extendedProps);
+        eventDidMount: function(info) {
             $(info.el).popover({
-                title: info.event.title,
                 placement:'top',
                 trigger : 'hover',
-                container:'body'
-            }).popover('show');
+                html: true,
+                container:'body',
+                content: content_popover(info)
+            })
         }
     };
 
