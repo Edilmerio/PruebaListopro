@@ -59,8 +59,19 @@ def __create_dict_for_fullcalendar(q, start1, end1):
             start = q.start.date()
             end = q.end.date()
         else:
-            start = q.start.astimezone(tz=start1.tzinfo)
-            end = q.end.astimezone(tz=start1.tzinfo)
+
+            start_base = getattr(q, 'start_base', q.start)
+            utcoffset_start_base = start_base.astimezone(tz=start1.tzinfo).utcoffset()
+            utcoffset_start = q.start.astimezone(tz=start1.tzinfo).utcoffset()
+            start = q.start + (utcoffset_start_base - utcoffset_start)
+            start = start.astimezone(tz=start1.tzinfo)
+
+            end_base = getattr(q, 'end_base', q.end)
+            utcoffset_end_base = end_base.astimezone(tz=start1.tzinfo).utcoffset()
+            utcoffset_end = q.end.astimezone(tz=start1.tzinfo).utcoffset()
+            end = q.end + (utcoffset_end_base - utcoffset_end)
+            end = end.astimezone(tz=start1.tzinfo)
+
         return {'id': q.idd, 'status': q.status, 'htmlLink': q.htmlLink,
                 'summary': q.summary, 'title': q.summary, 'start': start,
                 'end': end, 'hangoutLink': q.hangoutLink,
@@ -120,6 +131,8 @@ def __create_events_from_recurring_event(ev, start, end):
         copy_ev = copy(ev)
         copy_ev.start = r
         copy_ev.end = r + delta_time
+        copy_ev.start_base = ev.start
+        copy_ev.end_base = ev.end
         v = __create_dict_for_fullcalendar(copy_ev, start, end)
         if v:
             events_aux.append(v)
