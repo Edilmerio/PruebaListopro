@@ -22,3 +22,4 @@ class Event(models.Model):
                                 related_name='creators', null=True, blank=True)
     organizer = models.ForeignKey(CreatorOrganizer, on_delete=models.DO_NOTHING,
                                   related_name='organizers', null=True, blank=True)
+    timezone_origin = models.CharField(max_length=100)

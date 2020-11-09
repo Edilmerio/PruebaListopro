@@ -12,7 +12,7 @@ from config import settings
 class Events:
 
     @staticmethod
-    def update_bd(events):
+    def update_bd(events, timezone_calendar):
         """
         update or create events in bd
         """
@@ -22,7 +22,7 @@ class Events:
 
         for event in events:
             creator, organizer = Events.__build_creator_organizer(event)
-            d = Events.__build_start_end_is_allday(event)
+            d = Events.__build_start_end_is_allday(event, timezone_calendar)
             if not d:
                 # event with error in date
                 event_error += 1
@@ -52,7 +52,7 @@ class Events:
                                                                                        'display_name': organizer.display_name},
                                                                              id=id_organizer)
 
-                    default.update({'start': d[0], 'end': d[1], 'is_allday': d[2], 'recurrence': recurrence,
+                    default.update({'start': d[0], 'end': d[1], 'is_allday': d[2], 'recurrence': recurrence, 'timezone_origin': d[3],
                                     'creator': creator_bd[0], 'organizer': organizer_bd[0]})
 
                     result = Event.objects.update_or_create(defaults=default, idd=event['id'])
@@ -81,7 +81,7 @@ class Events:
         return creator, organizer
 
     @staticmethod
-    def __build_start_end_is_allday(event):
+    def __build_start_end_is_allday(event, tzcalendar):
         """
         build start, end and is_allday
         """
@@ -104,7 +104,10 @@ class Events:
                 end_string = event['end'].get('dateTime')
                 start = datetime.fromisoformat(start_string)
                 end = datetime.fromisoformat(end_string)
-            return start, end, is_allday
+
+            tz_event = event['start'].get('timeZone', None)
+            tz_event = tz_event if tz_event else tzcalendar
+            return start, end, is_allday, tz_event
         except KeyError:
             write_log('Error to convert string start or end to date o datetime, event: '.format(event['id']))
             return []

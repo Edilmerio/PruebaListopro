@@ -59,16 +59,16 @@ def __create_dict_for_fullcalendar(q, start1, end1):
             start = q.start.date()
             end = q.end.date()
         else:
-
+            tz_origin = pytz.timezone(q.timezone_origin)
             start_base = getattr(q, 'start_base', q.start)
-            utcoffset_start_base = start_base.astimezone(tz=start1.tzinfo).utcoffset()
-            utcoffset_start = q.start.astimezone(tz=start1.tzinfo).utcoffset()
+            utcoffset_start_base = start_base.astimezone(tz=tz_origin).utcoffset()
+            utcoffset_start = q.start.astimezone(tz=tz_origin).utcoffset()
             start = q.start + (utcoffset_start_base - utcoffset_start)
             start = start.astimezone(tz=start1.tzinfo)
 
             end_base = getattr(q, 'end_base', q.end)
-            utcoffset_end_base = end_base.astimezone(tz=start1.tzinfo).utcoffset()
-            utcoffset_end = q.end.astimezone(tz=start1.tzinfo).utcoffset()
+            utcoffset_end_base = end_base.astimezone(tz=tz_origin).utcoffset()
+            utcoffset_end = q.end.astimezone(tz=tz_origin).utcoffset()
             end = q.end + (utcoffset_end_base - utcoffset_end)
             end = end.astimezone(tz=start1.tzinfo)
 

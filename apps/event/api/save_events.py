@@ -16,6 +16,6 @@ def save_events_from_json_file(request):
                              'title': 'Load Events', 'type': 'info'})
     calendar = read_json_file_convert_to_python(file)
     events = calendar.get('items', [])
-    result = Events.update_bd(events)
+    result = Events.update_bd(events, calendar['timeZone'])
     return JsonResponse({'text': 'Insert: {}, Update: {}, Error: {}'.format(result[0], result[1], result[2]),
                          'title': 'Load Events', 'type': 'info'})

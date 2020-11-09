@@ -2,7 +2,7 @@ PruebaListopro es una plaaforma para lee un fichero json (events.json) con event
 resultado de la api de Google Calendar.Este fichero debe estar ubicado en el directorio
 PruebaListopro.
 
-Pagina principal event/show_events
+Pagina principal: event/show_events o /
 
 En la pagina principal se muestra:
 1-Un calendario que solo recibe los eventos desde el servidor que esten dentro de la
@@ -31,3 +31,4 @@ En el fichero PruebaListopro/log se escriben los log del sistema
 10- Run python manage.py migrate
 11-Run python manage.py collectstatic for production environment
 12-Crear y cargar en el fichero PruebaListopro/events.json el JSON de los eventos de google calendar
+13-Con el comando python manage.py delete_events borra los eventos la BD
